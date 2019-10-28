@@ -1,0 +1,30 @@
+{
+  "name": "cashid-server",
+  "version": "1.0.0",
+  "description": "development tool for cashid authentication",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paOol/cashid-server.git"
+  },
+  "keywords": [
+    "cashid",
+    "bitcoin",
+    "cash",
+    "authentication"
+  ],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/paOol/cashid-server/issues"
+  },
+  "homepage": "https://github.com/paOol/cashid-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cashid": "^0.3.0",
+    "express": "^4.17.1"
+  }
+}
