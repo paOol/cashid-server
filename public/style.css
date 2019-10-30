@@ -222,7 +222,6 @@ h2 {
 
 .profile #header {
   border-bottom: 1px solid #eee;
-  margin-bottom: 40px;
   padding-bottom: 40px;
   text-align: center;
   position: relative;
@@ -675,7 +674,6 @@ img {
 /* Media Queries */
 @media screen and (max-width: 540px) {
   #header {
-    margin-bottom: 60px;
     border-bottom: 1px solid #eee;
   }
   .post {

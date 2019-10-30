@@ -36,18 +36,16 @@ const html = `
 
                     <h1>CashID</h1>
                     <h2>An authentication system working on <span class="highlight"> Bitcoin Cash.</span></h2>
+                    <br />
+                    <h5>This development server is for accessibility and not meant to be used in production.</h5>
                 </header>
             </section>
         </div>
 
         <section id="wrapper" class="home">
             <div class="about">
-
                 <ol class="list-view">
-
-                    <li >
-
-
+                    <li>
                         <div class="list-detail">
                             <div class="_title-block">
                                 <h3>How to use</h3>
@@ -70,17 +68,22 @@ const html = `
                             </pre>
                             </p>
 
+                            <p> or use a <strong> cURL </strong> </p>
+
+                            <pre>curl --request POST \ --url https://auth.cashid.org/ \ --header 'content-type: application/json' \ --data '{ "action": "examplestring", "data": "examplestring", "required": { "identity": [ "name", "family" ], "position": [ "country" ], "contact": [ "email" ] }, "optional": { "identity": [ "age", "gender" ], "position": [ "city" ] } }'
+                            </pre>
+
                             <p>
                             The server will respond with a cashid request that looks like
 
-                            <pre>cashid:auth.cashid.org/auth?a=login&d=jnwraqph&x=767043324
+                            <pre>cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752%
                             </pre>
 
                             </p>
                         </div>
                     </li>
 
-                    <li >
+                    <li>
 
 
                         <div class="list-detail">
@@ -89,15 +92,15 @@ const html = `
                             </div>
                             <p class="_summary"> This request must be opened by a compatible wallet (Badger wallet), where it will be signed.
 
-                            <pre>web4bch.bch.sign(web4bch.bch.defaultAccount, cashIDRequest, ( err, res ) => { // do stuff }
+                            <pre> const cashIDRequest = 'cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752%';
+
+                            web4bch.bch.sign(web4bch.bch.defaultAccount, cashIDRequest, ( err, res ) => { // do stuff }
                             </pre>
                             </p>
                         </div>
                     </li>
 
-                    <li >
-
-
+                    <li>
                         <div class="list-detail">
                             <div class="_title-block">
                                 <h3>Handling the Response</h3>
@@ -107,16 +110,15 @@ const html = `
                     </li>
 
 
-                    <li >
-
-
+                    <li>
                         <div class="list-detail">
                             <div class="_title-block">
                                 <h3>More Info</h3>
                             </div>
                             <p class="_summary"> For Developers, looking to integrate CashID, check out the
-                                <a target="_blank" href="https://github.com/paOol/CashID">Javascript library</a>.
-
+                                <a target="_blank" href="https://gitlab.com/cashid/protocol-specification">CashID Protocol Specification</a>.
+                            </p>
+                            <p class="_summary"> For a Javascript library , check out the <a target="_blank" href="https://github.com/paOol/CashID">CashID</a> npm package.
                             </p>
                         </div>
                     </li>
