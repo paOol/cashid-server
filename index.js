@@ -1,7 +1,7 @@
 const express = require('express');
 
 const CashID = require('cashid');
-const cashid = new CashID('domain', 'auth');
+const cashid = new CashID('auth.cashid.org', '/');
 
 const bodyParser = require('body-parser');
 
@@ -19,13 +19,22 @@ function validateRequest(obj) {
 }
 server.use(express.static('public'));
 
-server.post('/test', async (req, res) => {
-  console.log('test endpoint', req.body);
+server.post('/', async (req, res) => {
+  const { action, data, required, optional } = req.body;
 
-  // let uri = cashid.createRequest(action, data, metadata);
-  // return uri;
+  if (action === undefined) {
+    res.status(500).send('Missing CashID action parameter');
+  }
 
-  res.send(req.body);
+  if (data === undefined) {
+    res.status(500).send('Missing CashID data parameter');
+  }
+
+  const metadata = { required, optional };
+
+  const uri = cashid.createRequest(action, data, metadata);
+
+  return res.status(200).send(uri);
 });
 
 server.post('/validate', (req, res) => {
