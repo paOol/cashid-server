@@ -51,7 +51,7 @@ const html = `
                                 <h3>How to use</h3>
                             </div>
 
-                            <p class="_summary"> Send a <strong> POST </strong> request to https://auth.cashid.org with a body that looks like the following
+                            <p class="_summary"> Send a <strong> POST </strong> request to https://auth.cashid.org/api/auth with a body that looks like the following
                             <pre>
                             {
                                 action: 'example string',
@@ -70,7 +70,7 @@ const html = `
 
                             <p> or use a <strong> cURL </strong> </p>
 
-                            <pre>curl --request POST \ --url https://auth.cashid.org/ \ --header 'content-type: application/json' \ --data '{ "action": "examplestring", "data": "examplestring", "required": { "identity": [ "name", "family" ], "position": [ "country" ], "contact": [ "email" ] }, "optional": { "identity": [ "age", "gender" ], "position": [ "city" ] } }'
+                            <pre>curl --request POST \ --url https://auth.cashid.org/api/auth \ --header 'content-type: application/json' \ --data '{ "action": "examplestring", "data": "examplestring", "required": { "identity": [ "name", "family" ], "position": [ "country" ], "contact": [ "email" ] }, "optional": { "identity": [ "age", "gender" ], "position": [ "city" ] } }'
                             </pre>
 
                             <p>

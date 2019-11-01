@@ -19,8 +19,9 @@ function validateRequest(obj) {
 }
 server.use(express.static('public'));
 
-server.post('/', async (req, res) => {
+server.post('/api/auth', async (req, res) => {
   const { action, data, required, optional } = req.body;
+  console.log('posted data', req.body);
 
   if (action === undefined) {
     res.status(500).send('Missing CashID action parameter');
