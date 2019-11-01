@@ -1,0 +1,30 @@
+let config = {
+  development: {
+    client: 'postgresql',
+    connection: {
+      host: 'localhost',
+      user: 'postgres',
+      password: 'example',
+      database: 'example',
+      port: 123
+    },
+    migrations: {
+      tableName: 'example_migrations'
+    }
+  },
+  production: {
+    client: 'postgresql',
+    connection: {
+      host: 'host',
+      user: 'postgres',
+      password: 'example',
+      database: 'example',
+      port: 123
+    },
+    migrations: {
+      tableName: 'example_migrations'
+    }
+  }
+};
+
+module.exports = config;
