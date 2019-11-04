@@ -9,10 +9,6 @@ const html = `
         <meta name="description" content="CashID is a decentralized authentication system working on Bitcoin Cash.">
         <meta name="author" content="CashID">
 
-        <meta property="og:image" content="https://badger.bitcoin.com" />
-        <meta name="twitter:image" content="https://badger.bitcoin.com">
-        <meta name="twitter:image:src" content="https://badger.bitcoin.com">
-
         <meta property="og:locale" content="en_US" />
         <meta property="og:title" content="">
         <meta property="og:description" content="CashID is a decentralized authentication system working on Bitcoin Cash.">
@@ -76,7 +72,7 @@ const html = `
                             <p>
                             The server will respond with a cashid request that looks like
 
-                            <pre>cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752%
+                            <pre>cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752
                             </pre>
 
                             </p>
@@ -92,9 +88,9 @@ const html = `
                             </div>
                             <p class="_summary"> This request must be opened by a compatible wallet (Badger wallet), where it will be signed.
 
-                            <pre> const cashIDRequest = 'cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752%';
+                            <pre> const cashIDRequest = 'cashid:auth.cashid.org/?a=examplestring&d=examplestring&r=i12p1c1&o=i45p3&x=620050752';</pre>
 
-                            web4bch.bch.sign(web4bch.bch.defaultAccount, cashIDRequest, ( err, res ) => { // do stuff }
+                            <pre>web4bch.bch.sign(web4bch.bch.defaultAccount, cashIDRequest, ( err, res ) => { // do stuff }
                             </pre>
                             </p>
                         </div>
@@ -105,7 +101,9 @@ const html = `
                             <div class="_title-block">
                                 <h3>Handling the Response</h3>
                             </div>
-                            <p class="_summary">  The wallet will send a POST request to this development server and it will be viewable based on the <i>action</i> and <i>data</i> strings used to create the request. For example, If you used  action = 'foo' and data = 'bar', you can view the response data from  auth.cashid.org/foo/bar </p>
+                            <p class="_summary">  The wallet will send a POST request to this development server and it will be viewable based on the <i>action</i> and <i>data</i> strings used to create the request. For example, If you used  action = 'demo' and data = 'demostring123', you can view the response data from <a href="https://auth.cashid.org/demo/demostring123">https://auth.cashid.org/demo/demostring123</a>.</p>
+
+                            <p> An empty array means that action and data combination has not been used. </p>
                         </div>
                     </li>
 
