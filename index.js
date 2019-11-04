@@ -27,11 +27,13 @@ function parseRequest(uri) {
 }
 
 async function getRequests(action, data) {
-  let rows = await knex('Requests').where({
-    action,
-    data
-  });
-  console.log('rows', rows);
+  const rows = await knex('Requests')
+    .where({
+      action,
+      data
+    })
+    .orderBy('created_at', 'desc')
+    .limit(15);
 
   return rows;
 }
@@ -43,10 +45,22 @@ async function saveRequest(cashIDObj, parsed) {
     request,
     address,
     signature,
-    raw: parsed
+    action: parsed.parameters.action,
+    data: parsed.parameters.data,
+    raw: parsed.parameters
   });
 
   return rows;
+}
+
+function cleanObj(obj) {
+  const clean = obj.map(x => {
+    delete x.id;
+    delete x.last_updated;
+    return x;
+  });
+
+  return clean;
 }
 
 server.post('/api/auth', async (req, res) => {
@@ -67,7 +81,6 @@ server.post('/api/auth', async (req, res) => {
 
 server.post('/api/request', async (req, res) => {
   const { action, data, required, optional } = req.body;
-  console.log('posted data', req.body);
 
   if (action === undefined) {
     return res.status(500).send('Missing CashID action parameter');
@@ -100,17 +113,26 @@ server.post('/validate', (req, res) => {
   }
 
   let cashIDObj = { request, address, signature };
-  console.log('cashIDObj', cashIDObj);
 
   let valid = validateRequest(cashIDObj);
   res.send(valid);
 });
 
-server.get('/test', async (req, res) => {
-  const data = await getRequests('test', 'test');
-  console.log('data', data);
+server.get('/:action/:data', async (req, res) => {
+  const { action, data } = req.params;
 
-  return res.status(200).send(data);
+  if (action === undefined) {
+    return res.status(500).send('Missing CashID action parameter');
+  }
+
+  if (data === undefined) {
+    return res.status(500).send('Missing CashID data parameter');
+  }
+
+  const response = await getRequests(action, data);
+  const cleaned = cleanObj(response);
+
+  return res.status(200).send(cleaned);
 });
 
 server.get('/', async (req, res) => {
