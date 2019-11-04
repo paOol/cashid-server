@@ -47,6 +47,7 @@ async function saveRequest(cashIDObj, parsed) {
     signature,
     action: parsed.parameters.action,
     data: parsed.parameters.data,
+    nonce: parsed.parameters.nonce,
     raw: parsed.parameters
   });
 
@@ -57,6 +58,7 @@ function cleanObj(obj) {
   const clean = obj.map(x => {
     delete x.id;
     delete x.last_updated;
+    delete x.slp_address;
     return x;
   });
 
