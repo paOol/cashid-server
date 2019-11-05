@@ -41,10 +41,36 @@ const html = `
         <section id="wrapper" class="home">
             <div class="about">
                 <ol class="list-view">
+
+
                     <li>
                         <div class="list-detail">
                             <div class="_title-block">
                                 <h3>How to use</h3>
+                            </div>
+
+                            <p class="_summary"> The easiest way to get started is by using the react-cashid npm library like so.
+
+                            <pre>import CashIdComponent from 'react-cashid';
+
+&lt;CashIdComponent
+    domain="auth.cashid.org"
+    path="/api/auth"
+    action="demo"
+    data="demostring123"
+/&gt;
+</pre>
+
+                            </p>
+
+                            <p class="_summary"> The wallet will send a POST request to this development server and it will be viewable based on the <i>action</i> and <i>data</i> strings used to create the request. For example, If you used  action = 'demo' and data = 'demostring123', you can view the response data from <a href="https://auth.cashid.org/demo/demostring123">https://auth.cashid.org/demo/demostring123</a>.</p>
+                        </div>
+                    </li>
+
+                    <li>
+                        <div class="list-detail">
+                            <div class="_title-block">
+                                <h3>Creating a CashID request</h3>
                             </div>
 
                             <p class="_summary"> Send a <strong> POST </strong> request to https://auth.cashid.org/api/request with a body that looks like the following
@@ -96,16 +122,7 @@ const html = `
                         </div>
                     </li>
 
-                    <li>
-                        <div class="list-detail">
-                            <div class="_title-block">
-                                <h3>Handling the Response</h3>
-                            </div>
-                            <p class="_summary">  The wallet will send a POST request to this development server and it will be viewable based on the <i>action</i> and <i>data</i> strings used to create the request. For example, If you used  action = 'demo' and data = 'demostring123', you can view the response data from <a href="https://auth.cashid.org/demo/demostring123">https://auth.cashid.org/demo/demostring123</a>.</p>
 
-                            <p> An empty array means that action and data combination has not been used. </p>
-                        </div>
-                    </li>
 
 
                     <li>
