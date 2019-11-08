@@ -73,8 +73,8 @@ function formatObj(cashIDObj, parsed) {
     signature,
     action: parsed.parameters.action,
     data: parsed.parameters.data,
-    nonce: parsed.parameters.nonce,
-    raw: parsed.parameters
+    nonce: parsed.parameters.nonce
+    // raw: parsed.parameters
   };
 }
 async function saveRequest(formattedObj) {
@@ -108,6 +108,8 @@ server.post('/api/auth', async (req, res) => {
 
   const formattedObj = formatObj(cashIDObj, parsed);
   await saveRequest(formattedObj);
+
+  const { action, data } = parsed.parameters;
 
   // broadcast
   io.emit(`${action}${data}`, formattedObj);
