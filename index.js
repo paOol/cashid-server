@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 
 const CashID = require('cashid');
 const cashid = new CashID('auth.cashid.org', '/');
@@ -9,10 +10,35 @@ const conf = require('./config/config');
 const env = process.env.NODE_ENV || 'development';
 const knex = require('knex')(conf[`${env}`]);
 
+const http = require('http');
+const socketIo = require('socket.io');
+
 const server = express();
+
 const port = 4000;
+server.use(cors());
 server.use(bodyParser.json());
 server.use(express.static('public'));
+
+const httpServer = http.createServer(server);
+const io = socketIo(httpServer);
+
+let interval;
+io.on('connection', socket => {
+  console.log('New client connected');
+
+  // prevent opening multiple connections for same client
+  // if (interval) {
+  //   clearInterval(interval);
+  // }
+  // interval = setInterval(() => {
+  //   console.log('do stuff');
+  // }, 10000);
+
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
+});
 
 function generateURI(action, data, metadata) {
   return cashid.createRequest(action, data, metadata);
@@ -134,6 +160,9 @@ server.get('/:action/:data', async (req, res) => {
   const response = await getRequests(action, data);
   const cleaned = cleanObj(response);
 
+  // broadcast
+  io.emit(`${action}${data}`, cleaned);
+
   return res.status(200).send(cleaned);
 });
 
@@ -143,6 +172,6 @@ server.get('/', async (req, res) => {
   return res.status(200).send(html);
 });
 
-server.listen(port, () =>
+httpServer.listen(port, () =>
   console.log(`Example app listening on port ${port}!`)
 );
