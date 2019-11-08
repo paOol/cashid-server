@@ -64,10 +64,10 @@ async function getRequests(action, data) {
   return rows;
 }
 
-async function saveRequest(cashIDObj, parsed) {
+function formatObj(cashIDObj, parsed) {
   const { request, address, signature } = cashIDObj;
 
-  let rows = await knex('Requests').insert({
+  return {
     request,
     address,
     signature,
@@ -75,7 +75,10 @@ async function saveRequest(cashIDObj, parsed) {
     data: parsed.parameters.data,
     nonce: parsed.parameters.nonce,
     raw: parsed.parameters
-  });
+  };
+}
+async function saveRequest(formattedObj) {
+  let rows = await knex('Requests').insert(formattedObj);
 
   return rows;
 }
@@ -103,7 +106,12 @@ server.post('/api/auth', async (req, res) => {
 
   const parsed = parseRequest(request);
 
-  await saveRequest(cashIDObj, parsed);
+  const formattedObj = formatObj(cashIDObj, parsed);
+  await saveRequest(formattedObj);
+
+  // broadcast
+  io.emit(`${action}${data}`, formattedObj);
+
   return res.status(200).send({ status: 'successs' });
 });
 
@@ -159,9 +167,6 @@ server.get('/:action/:data', async (req, res) => {
 
   const response = await getRequests(action, data);
   const cleaned = cleanObj(response);
-
-  // broadcast
-  io.emit(`${action}${data}`, cleaned);
 
   return res.status(200).send(cleaned);
 });
